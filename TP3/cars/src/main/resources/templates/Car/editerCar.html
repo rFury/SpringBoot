@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Add Car</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+    <div th:replace="Car/Template"></div>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                Edit Car
+            </div>
+            <div class="card-body">
+                <form th:action="@{/saveCar}" method="post" th:object="${car}">
+                    <div class="form-group">
+                        <label class="control-label" hidden>ID Car :</label>
+                        <input type="hidden" name="carID" th:field="*{carID}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Car Model :</label>
+                        <input type="text" name="carModel" th:field="*{carModel}" class="form-control" />
+                        <span th:errors="*{carModel}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Car Brand :</label>
+                        <input type="text" name="carBrand" th:field="*{carBrand}" class="form-control" />
+                        <span th:errors="*{carBrand}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Price :</label>
+                        <input type="text" name="price" th:field="*{price}" class="form-control" />
+                        <span th:errors="*{price}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Family Group :</label>
+                        <select name="familyGroup" th:field="*{familyGroup.id}" class="form-control">
+                            <option th:each="fg : ${FG}" th:value="${fg.id}" th:text="${fg.Group_Name}"></option>
+                        </select>   
+                        <span th:errors="*{familyGroup}" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                    <input name="page" class="form-control" th:value="${page}" hidden/>
+                    <input name="size" class="form-control" th:value="${size}" hidden/>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
